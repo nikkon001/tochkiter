@@ -137,13 +137,6 @@ tbody tr:hover td{background:var(--bg)}
         <div class="lbl">Крупнейшие группы вне застройки</div>
         <div style="overflow-x:auto"><table><thead><tr><th>Ближайший н. п.</th><th>Класс</th><th style="text-align:right">Зданий</th></tr></thead><tbody id="cl"></tbody></table></div>
       </div>
-      <div class="note">
-        <div class="lbl">Как читать</div>
-        <p>Это не реестр нарушений. Здания OSM сопоставлены с лесным покровом и сельхозугодьями OSM за пределами разметки жилой, садоводческой, промышленной и иной застройки (с запасом 25 м). Лесной покров не равен землям лесного фонда, угодья OSM не равны категории «земли сельхозназначения»: юридическую категорию проверяют по ЕГРН (НСПД).</p>
-        <p>Функция определена в три шага: теги самого здания в OSM; объект OSM (магазин, гостиница, подстанция) внутри контура или в 15 м от него; для остальных — площадь и вытянутость контура (до 45 м² — хозпостройка, 45–300 м² компактное — жилой дом, вытянутое от 300 м² — сельхоз- или производственное). Третий шаг даёт низкую достоверность, она указана во всплывающем окне.</p>
-        <p>Исключены руины и доты линии Маннергейма. Класс «в квартале лесничества» опирается на 42 квартала, размеченных в OSM; это единственные границы лесного фонда в открытых данных района.</p>
-        <p class="m" id="src" style="font-family:var(--f-mono);font-size:11px"></p>
-      </div>
     </aside>
     <div class="mapbox"><div id="map" aria-label="Карта"></div>
       <div class="legend"><div><span class="sw" style="background:var(--forest)"></span>Лесной покров (OSM)</div><div><span class="sw" style="background:var(--agri)"></span>Сельхозугодья (OSM)</div><div><span class="sw" style="background:var(--land)"></span>Прочие земли района</div></div>
@@ -179,7 +172,6 @@ const counts = {}, byDist = {};
 pts.forEach(p => { counts[p[1]] = (counts[p[1]]||0)+1; const k=p[1]+'|'+p[11]; byDist[k]=(byDist[k]||0)+1; });
 document.getElementById('sub').textContent = 'Здания OpenStreetMap на лесном покрове и сельхозугодьях вне разметки населённых пунктов. Всего зданий в двух районах: '+fmt(DATA.summary.buildings_total)+'.';
 document.getElementById('total').innerHTML = '<b>'+fmt(pts.length)+'</b> зданий в шести классах';
-document.getElementById('src').textContent = 'Данные: © участники OpenStreetMap, ODbL; выгрузка Overpass 27.10.2026.';
 
 const map = L.map('map', {preferCanvas:true, zoomSnap:0.25, attributionControl:true}).setView([60.7, 29.4], 8.25);
 map.attributionControl.setPrefix(false).addAttribution('© OpenStreetMap');
