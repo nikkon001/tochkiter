@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Застройка в лесу и на угодьях</title>
-<title>Застройка в лесу и на угодьях</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -344,7 +343,7 @@ function addUserLayer(name, gj, color){
   b.onclick = () => { const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', on); on ? lyr.addTo(map) : map.removeLayer(lyr); };
   usrBox.appendChild(b);
 }
-fetch('layers/layers.json').then(r => r.ok ? r.json() : null).then(list => {
+(location.protocol === 'file:' ? Promise.resolve(null) : fetch('layers/layers.json').then(r => r, () => null)).then(r => r && r.ok ? r.json() : null).then(list => list).then(list => {
   if (!list) return;
   document.getElementById('usrnote').textContent = 'Слои из папки layers/ на сайте.';
   list.forEach(it => fetch(it.file).then(r => r.json()).then(gj => addUserLayer(it.name || it.file, gj, it.color)).catch(() => {}));
